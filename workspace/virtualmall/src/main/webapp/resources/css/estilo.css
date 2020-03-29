@@ -1,0 +1,80 @@
+/*
+Lista de estilos que se aplican a toda la pagina
+*/
+
+body
+{
+    margin: 0px;    
+    font-size: 14px;
+}
+
+#cabecera
+{
+    background-image: url("#{request.contextPath}/resources/img/banner4.jpg");
+    background-size: 100%;
+    background-position-y: -450px;
+    background-position-x: -100px;
+
+    /*background-color: azure;*/
+    /*height: 10vh;*/
+}
+#banner
+{
+    height: 180px;
+}
+
+#cuerpo
+{
+    background-color: white;
+    
+}
+
+#inicio_busqueda
+{
+    background-image: url("#{request.contextPath}/resources/img/shoping.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    min-height: 100vh;
+}
+
+#piePagina
+{
+    /*position: absolute;
+    width: 100%;
+    bottom: 0px;*/
+    background-color: rgba(2, 136, 209, 1);
+    color: white;
+    /*height: 5vh;*/
+    text-align: center;
+    padding: 2px;
+    
+}
+
+#sobre_nosotros
+{
+    background-image: url("#{request.contextPath}/resources/img/banner5.jpg");
+    background-position-y: -300px;
+    background-size: 100% auto;
+    min-height: 100vh;    
+    display: flex;
+    align-items: center;
+}
+
+#registrate
+{
+    background-image: url("#{request.contextPath}/resources/img/personal.png");
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    /*background-color: #8BC34A*/
+}
+
+#contactanos
+{    
+    background-image: url("#{request.contextPath}/resources/img/walpaper4.jpg");
+    background-position-y: -100px;
+    background-size: 100% auto ;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    background-color:rgba(2, 136, 209, 1);
+}
