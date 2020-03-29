@@ -1,0 +1,5 @@
+#Configuraciones del netbeans
+nbactions.xml
+nb-configuration.xml
+
+target/
