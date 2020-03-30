@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">                   
+                <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+                <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+                <meta name="apple-mobile-web-app-capable" content="yes" />
+                <title>PrimeFaces</title>
+            </f:facet>
+        </h:head>
+
+        <h:body >
+
+            <div class="p-grid">
+                <div class="p-col-12 p-md-6 p-lg-3" >
+                    dato
+                </div>
+
+                <div class="p-col-12 p-md-6 p-lg-3" >
+                    dato
+                </div>
+
+                <div class="p-col-12 p-md-6 p-lg-3" >
+                    dato
+                </div>
+
+            </div>
+
+
+            <!-- =================== TITULO DE LA PAGINA ========================= -->
+            <ui:insert name="titulo_contenido">
+                <div class="titulo_contenido" >
+                    Sin titulo de la pantalla
+                </div>
+            </ui:insert>   
+            <p:separator />
+
+            <!-- =================== CONTENIDO DONDE VAN A ESTAR LOS DATOS ========================= -->
+            <div  style="padding: 10px">
+                <ui:insert name="contenido">
+                    Contenido por defecto de la plantilla  
+
+                    <div style="height: 400px"/>
+                    adasd
+                    <div style="height: 500px"/>
+                    asd
+                    <div style="height: 400px"/>
+                    asd
+
+                </ui:insert>
+            </div>
+
+            <!-- ========================= PIE DE LA PAGINA ====================== -->
+            <div class="pie-pagina" >
+                Todos los derechos reservador Codefac 2018
+            </div> 
+
+            <h:outputStylesheet name="primeflex/primeflex.css" library="css" />
+            <h:outputStylesheet library="css" name="estilo.css" />
+
+        </h:body>
+
+    </f:view>
+</html>

@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <h:outputStylesheet library="css" name="estilo.css" />
+        <f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+            <meta name="apple-mobile-web-app-capable" content="yes" />
+            <h:outputStylesheet library="css" name="estilo.css" />
+            <title>Codefac</title>
+        </f:facet>
+    </h:head>
+    <h:body>
+
+
+        <p:growl id="messages" showDetail="true" />
+        <p:outputPanel>
+            <!-- Cabecera -->
+            <div id="cabecera" >
+
+                <div class="ui-g" style="background-color: rgba(2, 136, 209, 0.9)">
+
+                    <div class="ui-g-12 ui-md-3 ui-lg-2">
+                        <p:link outcome="index">
+                            <h:graphicImage  library="img" name="logoVM.png" height="60px"/>
+                        </p:link>
+                    </div>
+
+                    <div class="ui-g-12 ui-md-8 ui-lg-8"><div style="font-size: 20px;font-style: italic;color: white;display: flex;align-items: center;height: 100%;text-align: center;">#QuedateEnCasa Nosotros buscamos por ti</div></div>
+
+
+                    <div class="ui-g-12 ui-md-1 ui-lg-1" style="text-align: right">
+                        <h:form id="formulario_menu">
+                            <p:commandButton id="dynaButton"  type="button" icon="fa fa-fw fa-bars" style="height: 40px;width: 40px" />
+                            <p:tieredMenu overlay="true" trigger="dynaButton" my="left top" at="left bottom" style="width:200px">
+
+                                <p:menuitem value="VirtualMall" url="#section_virtualmall" update="messages"  />
+                                <p:menuitem value="Sobre Nosotros" url="#section_que_es" update="messages"  />
+                                <p:menuitem value="Registrarse" process="@this" action="registro_proveedor" update="messages"  />
+                                <p:menuitem value="Contactanos" url="#section_contactanos" update="messages"  />
+                                <p:menuitem value="Ingresar" process="@this" action="login" update="messages"  />
+                                <p:menuitem value="Ayuda" actionListener="#{menuView.save}" update="messages"  />
+
+                            </p:tieredMenu>
+                        </h:form>
+
+                    </div>
+
+                </div>
+
+            </div >
+
+            <p:growl id="growl" sticky="true" showDetail="true" life="3000" />
+            <h:form id="formulario_principal">
+                <ui:insert name="contenido">
+                    Contenido de las plantillas                    
+                </ui:insert>
+            </h:form>
+
+            <!-- Pie Pagina -->
+            <div id="piePagina" >
+                VirtualMall 2020 ©
+            </div>
+        </p:outputPanel>
+    </h:body>
+
+    <h:outputStylesheet name="primeflex/primeflex.css" library="css" />
+</html>
+
