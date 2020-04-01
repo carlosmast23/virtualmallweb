@@ -64,7 +64,7 @@ public class SolicitudBusqueda implements Serializable {
     @Column(name = "CORREO_CLIENTE")
     private String correoCliente;
     @Column(name = "TIEMPO_RESPUESTA_MIN")
-    private BigInteger tiempoRespuestaMin;
+    private Integer tiempoRespuestaMin;
     @Column(name = "FECHA_HORA_SOLICITUD")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaHoraSolicitud;
@@ -124,11 +124,11 @@ public class SolicitudBusqueda implements Serializable {
         this.correoCliente = correoCliente;
     }
 
-    public BigInteger getTiempoRespuestaMin() {
+    public Integer getTiempoRespuestaMin() {
         return tiempoRespuestaMin;
     }
 
-    public void setTiempoRespuestaMin(BigInteger tiempoRespuestaMin) {
+    public void setTiempoRespuestaMin(Integer tiempoRespuestaMin) {
         this.tiempoRespuestaMin = tiempoRespuestaMin;
     }
 
@@ -187,7 +187,81 @@ public class SolicitudBusqueda implements Serializable {
 
     @Override
     public String toString() {
-        return "ec.com.codesoft.virtualmall.entity.SolicitudBusqueda[ id=" + id + " ]";
+        return busqueda;
+    }
+    
+    /**
+     * ========================================================================
+     *                         DATOS ADICIONALES
+     * ========================================================================
+     */
+    
+    public EstadoEnum getEstadoEnum() {
+        return EstadoEnum.getByLetra(estado);
+    }
+
+    public void setEstadoEnum(EstadoEnum estadoEnum) {
+        this.estado = estadoEnum.letra;
+    }
+    
+    public enum EstadoEnum
+    {
+        /**
+         * 1.- Generada:
+         * Estado inicial que pasa toda busqueda al momento de generar por el cliente
+         */
+        GENERADA("g","Generada"),
+        /**
+         * 2.- Verificada:
+         * Segundo estado que se ingresa despues que el verificador aprueba y categoriza la busqueda
+         */
+        VERIFICADA("v","Verificada"),
+        /**
+         * 3.- Estado cuando ya se mando los presupuestos al cliente para que pueda revisar
+         */
+        RESPONDIDA("r","Respondidad"),
+        /**
+         * 4.- Estado que se ingresa cuando el cliente por fin selecciona un presupuesto
+         */
+        FINALIZADA("f","Finalizada"),
+        /**
+         * 
+         */
+        ELIMINADA("e","Eliminado"),
+        /**"
+         * Estado cuando una busqueda incumple alguna norma de la pagina web
+         */
+        SANCIONADA("s","Sancionado");
+        
+        private String letra;
+        private String nombre;
+
+        private EstadoEnum(String letra, String nombre) {
+            this.letra = letra;
+            this.nombre = nombre;
+        }
+
+        
+        public String getLetra() {
+            return letra;
+        }
+
+        public String getNombre() {
+            return nombre;
+        }
+        
+        public static EstadoEnum getByLetra(String letra)
+        {
+            for (EstadoEnum object : EstadoEnum.values()) 
+            {
+                if(object.getLetra().equals(letra))
+                {
+                    return object;
+                }
+            }
+            return null;
+        }
+        
     }
     
 }

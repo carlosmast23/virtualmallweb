@@ -17,4 +17,33 @@ public abstract class ServiceFactory {
     public static UsuarioService getUsuarioService() {return new UsuarioService();}
     public static ProveedorService getProveedorService() {return new ProveedorService();}
     
+        /**
+     * Ip del servidor del cual se va a consumir los servicios
+     */
+    //public String ipServidor;
+    public static ServiceFactory serviceController;
+    
+    /**
+     * Obtiene la instancia del controlador actual
+     * @return 
+     */
+    public static ServiceFactory getFactory()
+    {
+        return serviceController;
+    }
+    
+    /**
+        
+    
+    
+    /**
+     * Permite saber si existe una conexion creada anteriormente
+     * @return 
+     */
+    public static boolean isActiveController()
+    {
+        return serviceController !=null;
+    }
+
+    
 }

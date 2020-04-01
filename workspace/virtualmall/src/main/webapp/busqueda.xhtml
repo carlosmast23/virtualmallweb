@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition  template="/WEB-INF/plantilla_formularios.xhtml">
+
+        <ui:define name="titulo_plantilla">
+            Busqueda
+        </ui:define>
+
+        <ui:define name="contenido2">
+            <p:growl id="message" showDetail="true" />
+            <p:accordionPanel id="pnlAcordeon" multiple="true">
+                <p:tab title="Datos Principales">
+                    <div class="p-grid" style="text-align: left">
+                        <div class="p-col-12 p-md-10  p-lg-6 " >
+                            <p:outputLabel for="busqueda" value="Busqueda:" />
+                            <p:inputText id="busqueda" class="campo_texto_responsive"  value="#{busquedaMb.busqueda.busqueda}" required="true"   />
+                            <p:message for="busqueda"  />
+                        </div>                       
+                    </div>
+
+                    <div class="p-grid" style="text-align: left">
+                        <div class="p-col-12 p-md-6  p-lg-4 " >
+                            <p:outputLabel for="nombres" value="Nombres:" />
+                            <p:inputText id="nombres" class="campo_texto_responsive"  value="#{busquedaMb.busqueda.nombresCliente}" required="true"   />
+                            <p:message for="nombres"  />
+                        </div>   
+                        <div class="p-col-6 p-md-4  p-lg-2 " >
+                            <p:outputLabel for="whatsapp" value="Whatsapp:" />
+                            <p:inputText id="whatsapp" class="campo_texto_responsive"  value="#{busquedaMb.busqueda.whatsappCliente}" required="true"   />
+                            <p:message for="whatsapp"  />
+                        </div> 
+
+
+                    </div>
+
+                    <div class="p-grid" style="text-align: left">
+                        <div class="p-col-12 p-md-12  p-lg-12 " >
+                            <p:outputLabel for="prioridad" value="Prioridad:" />
+                            <p:selectOneRadio id="prioridad" value="#{busquedaMb.prioridadMinutos}" required="true"  layout="grid" columns="3">
+                                <f:selectItem itemLabel="Alta (15 minutos)" itemValue="15" />
+                                <f:selectItem itemLabel="Media(3 horas)" itemValue="180" />
+                                <f:selectItem itemLabel="Baja (24 horas)" itemValue="1440" />
+                            </p:selectOneRadio>
+                            <p:message for="prioridad"  />
+                        </div> 
+                    </div>
+
+                </p:tab>
+                <p:tab title="Datos Adicionales">
+                    <div class="p-grid" style="text-align: left">
+                        <div class="p-col-12 p-md-6  p-lg-4 " >
+                            <p:outputLabel for="correo" value="Correo:" />
+                            <p:inputText id="correo" class="campo_texto_responsive"  value="#{busquedaMb.busqueda.correoCliente}"    />
+                            <p:message for="correo"  />
+                        </div>                       
+                    </div>
+                </p:tab>
+
+            </p:accordionPanel>
+
+            <div style="text-align: center;padding-top: 50px">                
+                <p:commandButton 
+                    process="formulario_principal,pnlAcordeon"
+                    value="Generar Busqueda" 
+                    class="boton_responsive" 
+                    style="width: 200px" 
+                    action="#{busquedaMb.grabar()}" 
+                    update="pnlAcordeon">
+                    
+                    <p:confirm header="Confirmar" message="Desea generar la busqueda ?" icon="pi pi-exclamation-triangle" />
+                </p:commandButton>
+            </div>
+
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+            </p:confirmDialog> 
+
+        </ui:define>
+    </ui:composition>
+
+</html>
+
