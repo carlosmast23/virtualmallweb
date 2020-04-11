@@ -13,11 +13,12 @@
 
         <ui:define name="contenido2">
 
-            <h2>Datos Usuario</h2>
+            <h3>Datos Usuario</h3>
 
             <div class="p-grid" style="text-align: left">
                 <div class="p-col-12 p-md-6  p-lg-3 " >
-                    <p:inputText id="usuario" class="campo_texto_responsive"  value="#{registroProveedorMb.proveedor.usuario.nick}" required="true" placeholder="Usuario"  />
+                    <p:inputText id="usuario" class="campo_texto_responsive"  value="#{registroProveedorMb.proveedor.usuario.nick}" required="true" placeholder="Usuario"  >                        
+                    </p:inputText>
                     <p:message for="usuario"  />
                 </div>
                 <div class="p-col-12 p-md-6  p-lg-3 " >
@@ -28,19 +29,28 @@
                 </div>                        
             </div>
 
-            <h2>Datos Personales</h2>
+            <h3>Datos Personales</h3>
             <div class="p-grid" style="text-align: left">
                 <div class="p-col-6 p-md-6  p-lg-2 " >
-                    <p:inputText class="campo_texto_responsive"  value="#{registroProveedorMb.proveedor.identificacion}" required="true" placeholder="Identificación" />
+                    <p:inputText id="identificación" class="campo_texto_responsive"  value="#{registroProveedorMb.proveedor.identificacion}" required="true" placeholder="Identificación" >                        
+                        <f:validator validatorId="cedulaValidador" />
+                    </p:inputText>
+                    <p:message for="identificación"  />
                 </div>
             </div>
 
             <div class="p-grid" style="text-align: left">
                 <div class="p-col-12 p-md-6  p-lg-3 " >
-                    <p:inputText class="campo_texto_responsive"  value="#{registroProveedorMb.proveedor.nombres}" required="true" placeholder="Nombres" />
+                    <p:inputText id="nombres" class="campo_texto_responsive"  value="#{registroProveedorMb.proveedor.nombres}" required="true" placeholder="Nombres" validatorMessage="#{expresionesRegularesMb.textoSinNumerosMensaje}"   >
+                        <f:validateRegex pattern="#{expresionesRegularesMb.textoSinNumeros}" />
+                    </p:inputText>
+                    <p:message for="nombres"  />
                 </div>
                 <div class="p-col-12 p-md-6  p-lg-3 " >
-                    <p:inputText class="campo_texto_responsive"  value="#{registroProveedorMb.proveedor.apellidos}" required="true" placeholder="Apellidos" />
+                    <p:inputText id="apellidos" class="campo_texto_responsive"  value="#{registroProveedorMb.proveedor.apellidos}" required="true" placeholder="Apellidos" validatorMessage="#{expresionesRegularesMb.textoSinNumerosMensaje}" >
+                        <f:validateRegex pattern="#{expresionesRegularesMb.textoSinNumeros}" />
+                    </p:inputText>
+                    <p:message for="apellidos"  />
                 </div>                
             </div>
 
@@ -57,7 +67,11 @@
 
             <div class="p-grid" style="text-align: left">
                 <div class="p-col-12 p-md-6  p-lg-3 " >
-                    <p:inputText class="campo_texto_responsive"  value="#{registroProveedorMb.proveedor.whatsapp}" required="true" placeholder="Whatsapp" />
+                    <p:inputText id="whatsapp" class="campo_texto_responsive"  value="#{registroProveedorMb.proveedor.whatsapp}" required="true" placeholder="Whatsapp" validatorMessage="Ingrese un formato valido" >
+                        <f:validateLength minimum="10" maximum="10"  />
+                        <f:validateRegex pattern="#{expresionesRegularesMb.soloNumeros}" />
+                    </p:inputText>
+                    <p:message for="whatsapp"  />
                 </div>                
             </div>
 
@@ -70,7 +84,7 @@
                 </div>                
             </div>
 
-            <h2>Datos Empresa</h2>
+            <h3>Datos Empresa</h3>
 
             <div class="p-grid" style="text-align: left">
                 <div class="p-col-12 p-md-3  p-lg-4 " >
@@ -83,11 +97,21 @@
                 </div>         
             </div>
 
+            <div class="p-grid" style="text-align: left">
+                <div class="p-col-12 p-md-12  p-lg-12 " >
+                    <p:selectCheckboxMenu id="grouped" value="#{registroProveedorMb.subCategoriaSeleccionadas}" label="Cars" multiple="true"
+                                          filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+                        <f:selectItems value="#{registroProveedorMb.subcategorias}" />
+                    </p:selectCheckboxMenu>
+                </div>         
+            </div>
+
+
             <div class="p-grid" style="text-align: center;padding-top: 20px">
                 <div class="p-col-12 p-md-4 p-md-offset-5 p-lg-3 p-lg-offset-5" >
                     <p:commandButton class="boton_responsive" process="@form" update="@form" action="#{registroProveedorMb.grabar()}" value="Registrar"/>
                 </div>
-                
+
             </div>
 
 

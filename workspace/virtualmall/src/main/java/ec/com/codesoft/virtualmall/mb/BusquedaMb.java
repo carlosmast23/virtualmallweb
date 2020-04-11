@@ -5,17 +5,23 @@
  */
 package ec.com.codesoft.virtualmall.mb;
 
+import ec.com.codesoft.virtualmall.core.ConstantesMb;
 import ec.com.codesoft.virtualmall.entity.SolicitudBusqueda;
 import ec.com.codesoft.virtualmall.exception.ServicioCodefacException;
 import ec.com.codesoft.virtualmall.service.SolicitudBusquedaService;
 import ec.com.codesoft.virtualmall.util.UtilidadesMensajes;
+import ec.com.codesoft.virtualmall.util.UtilidadesWeb;
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import javax.faces.context.Flash;
 
 /**
  *
@@ -34,26 +40,44 @@ public class BusquedaMb extends AbstractMb implements Serializable{
     @PostConstruct
     public void init()
     {
-        System.out.println("init ...");
+        System.out.println("init ...");       
         busqueda=new SolicitudBusqueda();
         servicio=new SolicitudBusquedaService();
+        
+        String parametro=UtilidadesWeb.buscarParametroPeticion("busqueda");
+        System.out.println("Parametro="+parametro);
+        if(parametro!=null)
+        {
+            busqueda.setBusqueda(parametro);
+        }
+        
     }
     
-    public void grabar()
+    public String grabar()
     {
         
         setearDatosAdicionales();
         try {
             servicio.grabar(busqueda);
             UtilidadesMensajes.mensaje("Mensaje generado correctamente",FacesMessage.SEVERITY_INFO);
+            /**
+             * Generar el link para redirecionar a otra pantalla que muestra el resultado
+             */
+            Map<String,String> mapParametro=new HashMap<String,String>();
+            mapParametro.put(RespuestaMb.PARAMETRO_TITULO,"Busqueda Generada Corretamente");
+            mapParametro.put(RespuestaMb.PARAMETRO_LINK,ConstantesMb.INDEX_RUTA);
+            mapParametro.put(RespuestaMb.PARAMETRO_CONTENIDO,"Su búsqueda se genero correctamente, vamos a buscar el producto o servicio solicitado en nuestra red de proveedores y nos comunicaremos por el numero de contacto proporcionado para mostrar las diferentes opciones, y finalmente que se pongan en contacto con el proveedor que le interesa su oferta.");            
+            return UtilidadesWeb.agregarParametroGet(ConstantesMb.RESPUESTA_RUTA, mapParametro,true);
         } catch (ServicioCodefacException ex) {
             Logger.getLogger(BusquedaMb.class.getName()).log(Level.SEVERE, null, ex);
             UtilidadesMensajes.mensaje(ex.getMessage(),FacesMessage.SEVERITY_ERROR);
         }
+        
+        return "";
     }
     
     private void setearDatosAdicionales() {
-        busqueda.setTiempoRespuestaMin(Integer.parseInt(prioridadMinutos));
+        busqueda.setTiempoRespuestaMin(Integer.parseInt(prioridadMinutos)); 
     }
 
 

@@ -38,12 +38,13 @@
                     <div class="ui-g-12 ui-md-1 ui-lg-1" style="text-align: right">
                         <h:form id="formulario_menu">
                             <p:commandButton id="dynaButton"  type="button" icon="fa fa-fw fa-bars" style="height: 40px;width: 40px" />
-                            <p:tieredMenu overlay="true" trigger="dynaButton" my="left top" at="left bottom" style="width:200px">
+                            
+                            <p:tieredMenu  overlay="true" trigger="dynaButton" my="left top" at="left bottom" style="width:200px">
 
-                                <p:menuitem value="VirtualMall" url="#section_virtualmall" update="messages"  />
-                                <p:menuitem value="Sobre Nosotros" url="#section_que_es" update="messages"  />
-                                <p:menuitem value="Registrarse" process="@this" action="registro_proveedor" update="messages"  />
-                                <p:menuitem value="Contactanos" url="#section_contactanos" update="messages"  />
+                                <p:menuitem value="VirtualMall" process="@this" url="#{constantesMb.indexRuta}"  update="messages"  />
+                                <p:menuitem value="Sobre Nosotros" process="@this" url="#{constantesMb.redirigir(constantesMb.indexNosotrosRuta)}" update="messages"  />
+                                <p:menuitem value="Registrarse" process="@this" action="#{constantesMb.redirigir(constantesMb.registroProveedorRuta)}" update="messages"  />
+                                <p:menuitem value="Contactanos" url="#{constantesMb.redirigir(constantesMb.indexContactanosRuta)}" update="messages"  />
                                 <p:menuitem value="Ingresar" process="@this" action="login" update="messages"  />
                                 <p:menuitem value="Ayuda" actionListener="#{menuView.save}" update="messages"  />
 

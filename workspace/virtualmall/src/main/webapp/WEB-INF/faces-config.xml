@@ -6,10 +6,28 @@
 
     <navigation-rule>
         <navigation-case>
+            <from-outcome>index-nosotros</from-outcome>
+            <to-view-id>index.xhtml#section_que_es</to-view-id>
+            <redirect>
+                <view-param>
+                    <name>faces-redirect</name>
+                    <value>true</value>
+                </view-param>    
+                <view-param>
+                    <name>tipo</name>
+                    <value>proforma</value>
+                </view-param>            
+            </redirect>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <navigation-case>
             <from-outcome>index</from-outcome>
             <to-view-id>index.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
+    
     
     <navigation-rule>
         <navigation-case>
@@ -20,8 +38,22 @@
     
     <navigation-rule>
         <navigation-case>
-            <from-outcome>registro_proveedor</from-outcome>
-            <to-view-id>registro_proveedor.xhtml</to-view-id>
+            <from-outcome>registroProveedor</from-outcome>
+            <to-view-id>registro_proveedor.xhtml</to-view-id> 
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>busqueda</from-outcome>
+            <to-view-id>busqueda.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>respuesta</from-outcome>
+            <to-view-id>respuesta.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     

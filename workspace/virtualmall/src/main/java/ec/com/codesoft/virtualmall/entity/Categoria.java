@@ -30,15 +30,6 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "categoria")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Categoria.findAll", query = "SELECT c FROM Categoria c"),
-    @NamedQuery(name = "Categoria.findById", query = "SELECT c FROM Categoria c WHERE c.id = :id"),
-    @NamedQuery(name = "Categoria.findByNombre", query = "SELECT c FROM Categoria c WHERE c.nombre = :nombre"),
-    @NamedQuery(name = "Categoria.findByDescripcion", query = "SELECT c FROM Categoria c WHERE c.descripcion = :descripcion"),
-    @NamedQuery(name = "Categoria.findByImagen", query = "SELECT c FROM Categoria c WHERE c.imagen = :imagen"),
-    @NamedQuery(name = "Categoria.findByEstado", query = "SELECT c FROM Categoria c WHERE c.estado = :estado"),
-    @NamedQuery(name = "Categoria.findByFechaCreacionRegistro", query = "SELECT c FROM Categoria c WHERE c.fechaCreacionRegistro = :fechaCreacionRegistro")})
 public class Categoria implements Serializable {
 
     private static final long serialVersionUID = 1L; 
@@ -62,7 +53,8 @@ public class Categoria implements Serializable {
     @Column(name = "FECHA_CREACION_REGISTRO")
     @Temporal(TemporalType.DATE)
     private Date fechaCreacionRegistro;
-    @OneToMany(mappedBy = "categoriaId")
+    
+    @OneToMany(mappedBy = "categoria")
     private List<Subcategoria> subcategoriaList;
 
     public Categoria() {

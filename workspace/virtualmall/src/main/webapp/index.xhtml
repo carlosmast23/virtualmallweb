@@ -18,8 +18,12 @@
                     <div class="ui-g" style="padding-top: 20px;background-color: rgba(255, 193, 7, 0.5);">
 
                         <div class="ui-g-12 ui-md-2 ui-lg-3" />
-                        <div class="ui-g-10 ui-md-7 ui-lg-5" style="opacity: 1.5"><p:inputText style="width: 100%;height: 30px;font-size:  22px;" placeholder="Que estas buscando hoy "  /></div>
-                        <div class="ui-g-2 ui-md-1 ui-lg-1"><p:button   style="width:100%; height: 40px" icon="fa fa-fw fa-search" title="Buscar" /></div>
+                        <div class="ui-g-10 ui-md-7 ui-lg-5" style="opacity: 1.5">
+                            <p:inputText id="txtBusqueda" value="#{indexMb.busquedaTexto}" style="width: 100%;height: 30px;font-size:  20px;" placeholder="Que estas buscando hoy "  />
+                        </div>
+                        <div class="ui-g-2 ui-md-1 ui-lg-1">
+                            <p:commandButton  process="txtBusqueda @this" action="#{indexMb.ejemplo()}"   style="width:100%; height: 40px" icon="fa fa-fw fa-search" title="Buscar" />
+                        </div>
                         <div class="ui-g-1 ui-md-2 ui-lg-3" />
 
                     </div>
@@ -42,11 +46,19 @@
                         <div class="ui-g-12 ui-md-4 ui-lg-3" style="opacity: 1.5;">
                             <div style="border: 5px;background-color: rgba(255, 255, 255, 0.85);border-radius: 15px 0 15px 0;">
                                 <div style="padding: 5px;margin-right: 10px;color: #607D8B;font-size: 16px;font-weight: 500;text-align: center"><h3>Eres proveedor registrate gratis</h3></div>
-                                <div style="padding: 5px;margin-right: 10px"><p:inputText placeholder="Nombres y Apellidos" style="width: 100%" /></div>
-                                <div style="padding: 5px;margin-right: 10px"><p:inputText placeholder="Nombre de la empresa" style="width: 100%" /></div>
-                                <div style="padding: 5px;margin-right: 10px"><p:inputText placeholder="Celular" style="width: 100%" /></div>
-                                <div style="padding: 5px;margin-right: 10px"><p:inputText placeholder="Correo" style="width: 100%" /></div>
-                                <div style="padding: 5px;margin-right: 15px"><p:commandButton value="Registrarse" style="width: 105%" /></div>
+                                <div style="padding: 5px;margin-right: 10px"><p:inputText id="txtNombre" value="#{indexMb.nombres}" placeholder="Nombres" style="width: 100%" /></div>
+                                <div style="padding: 5px;margin-right: 10px"><p:inputText id="txtApellido" value="#{indexMb.apellidos}" placeholder="Apellidos" style="width: 100%" /></div>
+                                <div style="padding: 5px;margin-right: 10px"><p:inputText id="txtNombreEmpresa" value="#{indexMb.nombreEmpresa}" placeholder="Nombre de la empresa" style="width: 100%" /></div>
+                                <div style="padding: 5px;margin-right: 10px"><p:inputText id="txtCelular" value="#{indexMb.whatsapp}" placeholder="Celular" style="width: 100%" /></div>
+                                <div style="padding: 5px;margin-right: 10px"><p:inputText id="txtCorreo" value="#{indexMb.correo}" placeholder="Correo" style="width: 100%" /></div>
+                                <div style="padding: 5px;margin-right: 15px">
+                                    <p:commandButton 
+                                        process="txtNombre,txtApellido,txtNombreEmpresa,txtCelular,txtCorreo,@this" 
+                                        action="#{indexMb.registroProveedorRedirigir()}"
+                                        value="Registrarse" 
+                                        style="width: 105%" />
+                                </div>
+
                             </div>
                         </div>
                         <div class="ui-g-0 ui-md-1 ui-lg-1" />
@@ -126,11 +138,18 @@
                                 <h1>Registrate Gratis</h1>
                                 <div style="border: 2px;border-radius: 15px 0 15px 0;">
                                     <div style="text-align: center"><h:graphicImage library="img" name="registro.png" height="100px" /></div>
-                                    <div style="padding: 5px;margin-right: 10px"><p:inputText placeholder="Nombres y Apellidos" style="width: 100%" /></div>
-                                    <div style="padding: 5px;margin-right: 10px"><p:inputText placeholder="Nombre de la empresa" style="width: 100%" /></div>
-                                    <div style="padding: 5px;margin-right: 10px"><p:inputText placeholder="Celular" style="width: 100%" /></div>
-                                    <div style="padding: 5px;margin-right: 10px"><p:inputText placeholder="Correo" style="width: 100%" /></div>
-                                    <div style="padding: 5px;margin-right: 15px"><p:commandButton value="Registrarse" style="width: 105%" /></div>
+                                    <div style="padding: 5px;margin-right: 10px"><p:inputText id="txtNombre2" value="#{indexMb.nombres}" placeholder="Nombres" style="width: 100%" /></div>
+                                    <div style="padding: 5px;margin-right: 10px"><p:inputText id="txtApellido2" value="#{indexMb.apellidos}" placeholder="Apellidos" style="width: 100%" /></div>
+                                    <div style="padding: 5px;margin-right: 10px"><p:inputText id="txtNombreEmpresa2" value="#{indexMb.nombreEmpresa}" placeholder="Nombre de la empresa" style="width: 100%" /></div>
+                                    <div style="padding: 5px;margin-right: 10px"><p:inputText id="txtCelular2" value="#{indexMb.whatsapp}" placeholder="Celular" style="width: 100%" /></div>
+                                    <div style="padding: 5px;margin-right: 10px"><p:inputText id="txtCorreo2" value="#{indexMb.correo}" placeholder="Correo" style="width: 100%" /></div>
+                                    <div style="padding: 5px;margin-right: 15px">
+                                        <p:commandButton 
+                                            process="txtNombre2,txtApellido2,txtNombreEmpresa2,txtCelular2,txtCorreo2,@this" 
+                                            action="#{indexMb.registroProveedorRedirigir()}"
+                                            value="Registrarse" 
+                                            style="width: 105%" />
+                                    </div>
                                     <div style="padding: 5px;margin-right: 15px"><p:link value="Teminos y Condiciones" style="width: 105%" /></div>
                                 </div>
                             </div>

@@ -56,13 +56,13 @@ public class Subcategoria implements Serializable {
     @Column(name = "FECHA_CREACION_REGISTRO")
     @Temporal(TemporalType.DATE)
     private Date fechaCreacionRegistro;
-    @OneToMany(mappedBy = "subcategoriaId")
-    private List<SubcategoriaBusqueda> subcategoriaBusquedaList;
+    //@OneToMany(mappedBy = "subcategoriaId")
+    //private List<SubcategoriaBusqueda> subcategoriaBusquedaList;
     @JoinColumn(name = "CATEGORIA_ID", referencedColumnName = "ID")
     @ManyToOne
-    private Categoria categoriaId;
-    @OneToMany(mappedBy = "subcategoriaId")
-    private List<SubcategoriaProveedor> subcategoriaProveedorList;
+    private Categoria categoria;
+    //@OneToMany(mappedBy = "subcategoriaId")
+    //private List<SubcategoriaProveedor> subcategoriaProveedorList;
 
     public Subcategoria() {
     }
@@ -103,31 +103,18 @@ public class Subcategoria implements Serializable {
         this.fechaCreacionRegistro = fechaCreacionRegistro;
     }
 
-    @XmlTransient
-    public List<SubcategoriaBusqueda> getSubcategoriaBusquedaList() {
-        return subcategoriaBusquedaList;
+
+    public Categoria getCategoria() {
+        return categoria;
     }
 
-    public void setSubcategoriaBusquedaList(List<SubcategoriaBusqueda> subcategoriaBusquedaList) {
-        this.subcategoriaBusquedaList = subcategoriaBusquedaList;
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
 
-    public Categoria getCategoriaId() {
-        return categoriaId;
-    }
+    
 
-    public void setCategoriaId(Categoria categoriaId) {
-        this.categoriaId = categoriaId;
-    }
 
-    @XmlTransient
-    public List<SubcategoriaProveedor> getSubcategoriaProveedorList() {
-        return subcategoriaProveedorList;
-    }
-
-    public void setSubcategoriaProveedorList(List<SubcategoriaProveedor> subcategoriaProveedorList) {
-        this.subcategoriaProveedorList = subcategoriaProveedorList;
-    }
 
     @Override
     public int hashCode() {
@@ -151,7 +138,7 @@ public class Subcategoria implements Serializable {
 
     @Override
     public String toString() {
-        return "ec.com.codesoft.virtualmall.entity.Subcategoria[ id=" + id + " ]";
+        return nombre;
     }
     
 }

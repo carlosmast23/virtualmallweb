@@ -1,0 +1,31 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition  template="/WEB-INF/plantilla_formularios.xhtml">
+
+        <ui:define name="titulo_plantilla">
+            <p:outputLabel value="#{respuestaMb.titulo}" />
+        </ui:define>
+
+        <ui:define name="contenido2">      
+            <div style="text-align: center">
+                <i class="fa fa-fw fa-thumbs-up" style="font-size: 20vh;color: var(--color-principal)"></i>            
+            </div>
+
+            <div style="padding-left: 20%; padding-right: 20%;text-align: left">
+                <p:outputLabel  value="#{respuestaMb.mensaje}"/>
+            </div>
+
+            <p:spacer/>
+            <div style="text-align: center;">
+                <p:linkButton outcome="#{respuestaMb.linkRedirigir}" value="Continuar" icon="fa fa-fw fa-arrow-right" />
+            </div>
+        </ui:define>
+    </ui:composition>
+
+</html>
+

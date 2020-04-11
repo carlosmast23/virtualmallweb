@@ -1,6 +1,10 @@
 /*
 Lista de estilos que se aplican a toda la pagina
 */
+:root
+{
+    --color-principal: rgba(2, 136, 209, 1);   
+}
 
 body
 {
@@ -42,7 +46,7 @@ body
     /*position: absolute;
     width: 100%;
     bottom: 0px;*/
-    background-color: rgba(2, 136, 209, 1);
+    background-color: var(--color-principal);
     color: white;
     /*height: 5vh;*/
     text-align: center;
