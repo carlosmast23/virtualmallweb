@@ -8,7 +8,7 @@
     <ui:composition  template="/WEB-INF/plantilla_formularios.xhtml">
 
         <ui:define name="titulo_plantilla">
-            <p:outputLabel value="#{respuestaMb.titulo}" />
+            <p:outputLabel value="#{respuestaMb.mensaje.titulo}" />
         </ui:define>
 
         <ui:define name="contenido2">      
@@ -17,12 +17,12 @@
             </div>
 
             <div style="padding-left: 20%; padding-right: 20%;text-align: left">
-                <p:outputLabel  value="#{respuestaMb.mensaje}"/>
+                <p:outputLabel  value="#{respuestaMb.mensaje.mensaje}"/>
             </div>
 
             <p:spacer/>
             <div style="text-align: center;">
-                <p:linkButton outcome="#{respuestaMb.linkRedirigir}" value="Continuar" icon="fa fa-fw fa-arrow-right" />
+                <p:linkButton outcome="#{respuestaMb.mensaje.linkRedirigir}" value="Continuar" icon="fa fa-fw fa-arrow-right" />
             </div>
         </ui:define>
     </ui:composition>

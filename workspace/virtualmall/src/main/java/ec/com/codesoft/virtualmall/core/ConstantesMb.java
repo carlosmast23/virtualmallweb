@@ -26,19 +26,19 @@ import javax.faces.bean.ManagedBean;
 @ManagedBean
 @ApplicationScoped
 public class ConstantesMb implements Serializable{
-    public static final String REGISTRO_PROVEEDOR_RUTA="registro_proveedor.xhtml";
+    /*public static final String REGISTRO_PROVEEDOR_RUTA="registro_proveedor.xhtml";
     public static final String BUSQUEDA_RUTA="busqueda";
     public static final String RESPUESTA_RUTA="respuesta";
     public static final String INDEX_RUTA="index.xhtml";
     public static final String INDEX_NOSOTROS_RUTA="index.xhtml#section_que_es";
-    public static final String INDEX_CONTACTANOS_RUTA="index.xhtml#section_contactanos"; 
+    public static final String INDEX_CONTACTANOS_RUTA="index.xhtml#section_contactanos"; */
      
-    private String busquedaRuta=BUSQUEDA_RUTA;
+    /*private String busquedaRuta=BUSQUEDA_RUTA;
     private String respuestaRuta=RESPUESTA_RUTA;
     private String indexRuta=INDEX_RUTA;
     private String indexNosotrosRuta=INDEX_NOSOTROS_RUTA;
     private String registroProveedorRuta=REGISTRO_PROVEEDOR_RUTA;
-    private String indexContactanosRuta=INDEX_CONTACTANOS_RUTA;
+    private String indexContactanosRuta=INDEX_CONTACTANOS_RUTA;*/
     
     private String temaActual="flick";
     private String paginaInicial="busqueda.xhtml";
@@ -66,45 +66,7 @@ public class ConstantesMb implements Serializable{
     }
     
 
-    public String getBusquedaRuta() {
-        return busquedaRuta;
-    }
-
-    public void setBusquedaRuta(String busquedaRuta) {
-        this.busquedaRuta = busquedaRuta;
-    }
-
-    public String getRespuestaRuta() {
-        return respuestaRuta;
-    }
-
-    public void setRespuestaRuta(String respuestaRuta) {
-        this.respuestaRuta = respuestaRuta;
-    }
-
-    public String getIndexRuta() {
-        return indexRuta; 
-    }
-
-    public void setIndexRuta(String indexRuta) {
-        this.indexRuta = indexRuta;
-    }
-
-    public String getRegistroProveedorRuta() {
-        return registroProveedorRuta;
-    }
-
-    public void setRegistroProveedorRuta(String registroProveedorRuta) {
-        this.registroProveedorRuta = registroProveedorRuta;
-    }
-
-    public String getIndexNosotrosRuta() { 
-        return indexNosotrosRuta;
-    }
-
-    public void setIndexNosotrosRuta(String indexNosotrosRuta) {
-        this.indexNosotrosRuta = indexNosotrosRuta;
-    }
+   
 
     public String getTemaActual() {
         return temaActual;
@@ -120,14 +82,6 @@ public class ConstantesMb implements Serializable{
 
     public void setPaginaInicial(String paginaInicial) {
         this.paginaInicial = paginaInicial;
-    }
-
-    public String getIndexContactanosRuta() {
-        return indexContactanosRuta;
-    }
-
-    public void setIndexContactanosRuta(String indexContactanosRuta) {
-        this.indexContactanosRuta = indexContactanosRuta;
     }
 
     

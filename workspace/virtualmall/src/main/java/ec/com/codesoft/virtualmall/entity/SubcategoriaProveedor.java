@@ -30,11 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "subcategoria_proveedor")
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "SubcategoriaProveedor.findAll", query = "SELECT s FROM SubcategoriaProveedor s"),
-    @NamedQuery(name = "SubcategoriaProveedor.findById", query = "SELECT s FROM SubcategoriaProveedor s WHERE s.id = :id"),
-    @NamedQuery(name = "SubcategoriaProveedor.findByEstado", query = "SELECT s FROM SubcategoriaProveedor s WHERE s.estado = :estado"),
-    @NamedQuery(name = "SubcategoriaProveedor.findByFechaCreacionRegistro", query = "SELECT s FROM SubcategoriaProveedor s WHERE s.fechaCreacionRegistro = :fechaCreacionRegistro")})
+@NamedQueries({})
 public class SubcategoriaProveedor implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -51,10 +47,10 @@ public class SubcategoriaProveedor implements Serializable {
     private Date fechaCreacionRegistro;
     @JoinColumn(name = "PROVEEDOR_ID", referencedColumnName = "ID")
     @ManyToOne
-    private Proveedor proveedorId;
+    private Proveedor proveedor;
     @JoinColumn(name = "SUBCATEGORIA_ID", referencedColumnName = "ID")
     @ManyToOne
-    private Subcategoria subcategoriaId;
+    private Subcategoria subcategoria;
 
     public SubcategoriaProveedor() {
     }
@@ -87,20 +83,20 @@ public class SubcategoriaProveedor implements Serializable {
         this.fechaCreacionRegistro = fechaCreacionRegistro;
     }
 
-    public Proveedor getProveedorId() {
-        return proveedorId;
+    public Proveedor getProveedor() {
+        return proveedor;
     }
 
-    public void setProveedorId(Proveedor proveedorId) {
-        this.proveedorId = proveedorId;
+    public void setProveedor(Proveedor proveedor) {
+        this.proveedor = proveedor;
     }
 
-    public Subcategoria getSubcategoriaId() {
-        return subcategoriaId;
+    public Subcategoria getSubcategoria() {
+        return subcategoria;
     }
 
-    public void setSubcategoriaId(Subcategoria subcategoriaId) {
-        this.subcategoriaId = subcategoriaId;
+    public void setSubcategoria(Subcategoria subcategoria) {
+        this.subcategoria = subcategoria;
     }
 
     @Override

@@ -33,13 +33,15 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u"),
-    @NamedQuery(name = "Usuario.findById", query = "SELECT u FROM Usuario u WHERE u.id = :id"),
+    @NamedQuery(name = Usuario.NamedQueryFindById, query = "SELECT u FROM Usuario u WHERE u.nick = ?1"),
     @NamedQuery(name = "Usuario.findByNick", query = "SELECT u FROM Usuario u WHERE u.nick = :nick"),
     @NamedQuery(name = "Usuario.findByClave", query = "SELECT u FROM Usuario u WHERE u.clave = :clave"),
     @NamedQuery(name = "Usuario.findByTipo", query = "SELECT u FROM Usuario u WHERE u.tipo = :tipo"),
     @NamedQuery(name = "Usuario.findByEstado", query = "SELECT u FROM Usuario u WHERE u.estado = :estado"),
     @NamedQuery(name = "Usuario.findByFechaCreacionRegistro", query = "SELECT u FROM Usuario u WHERE u.fechaCreacionRegistro = :fechaCreacionRegistro")})
 public class Usuario implements Serializable {
+    
+    public static final String NamedQueryFindById="Usuario.findById";
 
     private static final long serialVersionUID = 1L;
     @Id

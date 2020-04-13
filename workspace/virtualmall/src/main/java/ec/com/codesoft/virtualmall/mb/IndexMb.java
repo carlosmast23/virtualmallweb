@@ -7,6 +7,7 @@ package ec.com.codesoft.virtualmall.mb;
 
 import com.sun.faces.context.flash.ELFlash;
 import ec.com.codesoft.virtualmall.core.ConstantesMb;
+import ec.com.codesoft.virtualmall.core.NavigationMb;
 import ec.com.codesoft.virtualmall.util.UtilidadesWeb;
 import java.io.IOException;
 import java.io.Serializable;
@@ -60,9 +61,9 @@ public class IndexMb extends AbstractMb implements Serializable {
         Map<String,String> mapParametros=new HashMap<String,String>();
         mapParametros.put("busqueda",busquedaTexto);
         mapParametros.put("faces-redirect","true");
-        String rutaFinal=UtilidadesWeb.agregarParametroGet(ConstantesMb.BUSQUEDA_RUTA,mapParametros);        
-        System.out.println(rutaFinal);
-        return rutaFinal;
+        //String rutaFinal=UtilidadesWeb.agregarParametroGet(ConstantesMb.BUSQUEDA_RUTA,mapParametros);        
+        //System.out.println(rutaFinal);
+        return NavigationMb.BUSQUEDA.getRutaJsf();
     }
     
     public String registroProveedorRedirigir() 

@@ -96,12 +96,22 @@
                     <p:inputTextarea class="campo_texto_responsive" cols="15"  value="#{registroProveedorMb.proveedor.descripcionNegocio}" required="true" placeholder="Descripcion" />
                 </div>         
             </div>
-
+            
             <div class="p-grid" style="text-align: left">
                 <div class="p-col-12 p-md-12  p-lg-12 " >
-                    <p:selectCheckboxMenu id="grouped" value="#{registroProveedorMb.subCategoriaSeleccionadas}" label="Cars" multiple="true"
-                                          filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
-                        <f:selectItems value="#{registroProveedorMb.subcategorias}" />
+                    <div style="margin-bottom: 15px">
+                        <p:outputLabel value="Seleccione las categorias para su empresa:" class="texto_negrilla" />
+                    </div>
+                    <p:selectCheckboxMenu 
+                        id="grouped" 
+                        value="#{registroProveedorMb.subCategoriaSeleccionadas}"
+                        label="Categorias" 
+                        multiple="true"                        
+                        converter="subCategoriaConverter"
+                        filter="true" 
+                        filterMatchMode="startsWith" >
+                        
+                        <f:selectItems   value="#{registroProveedorMb.subcategorias}"  />
                     </p:selectCheckboxMenu>
                 </div>         
             </div>
@@ -109,7 +119,7 @@
 
             <div class="p-grid" style="text-align: center;padding-top: 20px">
                 <div class="p-col-12 p-md-4 p-md-offset-5 p-lg-3 p-lg-offset-5" >
-                    <p:commandButton class="boton_responsive" process="@form" update="@form" action="#{registroProveedorMb.grabar()}" value="Registrar"/>
+                    <p:commandButton class="boton_responsive" process="@form" update="@form messages" action="#{registroProveedorMb.grabar()}" value="Registrar"/>
                 </div>
 
             </div>

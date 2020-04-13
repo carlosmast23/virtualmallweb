@@ -31,4 +31,16 @@ public class UsuarioFacade extends AbstractFacade<Usuario>{
         return null;
     }
     
+    public Usuario buscarPorNick(String nick)
+    {
+        Query query= entityManager.createNamedQuery(Usuario.NamedQueryFindById);
+        query.setParameter(1,nick);
+        List<Usuario> resultados= query.getResultList();
+        if(resultados.size()>0)
+        {
+            return resultados.get(0);
+        }
+        return null;
+    }
+    
 }

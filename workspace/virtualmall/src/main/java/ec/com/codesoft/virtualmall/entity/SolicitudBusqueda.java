@@ -5,8 +5,11 @@
  */
 package ec.com.codesoft.virtualmall.entity;
 
+import ec.com.codesoft.virtualmall.enumerador.GeneralEnumEstado;
+import ec.com.codesoft.virtualmall.util.UtilidadesFechas;
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -31,18 +34,7 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "solicitud_busqueda")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "SolicitudBusqueda.findAll", query = "SELECT s FROM SolicitudBusqueda s"),
-    @NamedQuery(name = "SolicitudBusqueda.findById", query = "SELECT s FROM SolicitudBusqueda s WHERE s.id = :id"),
-    @NamedQuery(name = "SolicitudBusqueda.findByBusqueda", query = "SELECT s FROM SolicitudBusqueda s WHERE s.busqueda = :busqueda"),
-    @NamedQuery(name = "SolicitudBusqueda.findByNombresCliente", query = "SELECT s FROM SolicitudBusqueda s WHERE s.nombresCliente = :nombresCliente"),
-    @NamedQuery(name = "SolicitudBusqueda.findByWhatsappCliente", query = "SELECT s FROM SolicitudBusqueda s WHERE s.whatsappCliente = :whatsappCliente"),
-    @NamedQuery(name = "SolicitudBusqueda.findByCorreoCliente", query = "SELECT s FROM SolicitudBusqueda s WHERE s.correoCliente = :correoCliente"),
-    @NamedQuery(name = "SolicitudBusqueda.findByTiempoRespuestaMin", query = "SELECT s FROM SolicitudBusqueda s WHERE s.tiempoRespuestaMin = :tiempoRespuestaMin"),
-    @NamedQuery(name = "SolicitudBusqueda.findByFechaHoraSolicitud", query = "SELECT s FROM SolicitudBusqueda s WHERE s.fechaHoraSolicitud = :fechaHoraSolicitud"),
-    @NamedQuery(name = "SolicitudBusqueda.findByEstado", query = "SELECT s FROM SolicitudBusqueda s WHERE s.estado = :estado"),
-    @NamedQuery(name = "SolicitudBusqueda.findByFechaCreacionRegistro", query = "SELECT s FROM SolicitudBusqueda s WHERE s.fechaCreacionRegistro = :fechaCreacionRegistro")})
+
 public class SolicitudBusqueda implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -76,6 +68,9 @@ public class SolicitudBusqueda implements Serializable {
     private Date fechaCreacionRegistro;
     @OneToMany(mappedBy = "solicitudBusquedaId")
     private List<Presupuesto> presupuestoList;
+
+    @OneToMany(mappedBy = "solicitudBusqueda")
+    private List<SubcategoriaBusqueda> subcategoriaBusquedas;
 
     public SolicitudBusqueda() {
     }
@@ -148,6 +143,7 @@ public class SolicitudBusqueda implements Serializable {
         this.estado = estado;
     }
 
+
     public Date getFechaCreacionRegistro() {
         return fechaCreacionRegistro;
     }
@@ -163,6 +159,14 @@ public class SolicitudBusqueda implements Serializable {
 
     public void setPresupuestoList(List<Presupuesto> presupuestoList) {
         this.presupuestoList = presupuestoList;
+    }
+
+    public List<SubcategoriaBusqueda> getSubcategoriaBusquedas() {
+        return subcategoriaBusquedas;
+    }
+
+    public void setSubcategoriaBusquedas(List<SubcategoriaBusqueda> subcategoriaBusquedas) {
+        this.subcategoriaBusquedas = subcategoriaBusquedas;
     }
 
     @Override
@@ -189,13 +193,55 @@ public class SolicitudBusqueda implements Serializable {
     public String toString() {
         return busqueda;
     }
-    
+
     /**
      * ========================================================================
-     *                         DATOS ADICIONALES
+     * DATOS ADICIONALES
      * ========================================================================
      */
+    public void addSubCategoria(Subcategoria subCategoria)
+    {
+        if(subcategoriaBusquedas==null)
+        {
+            subcategoriaBusquedas=new ArrayList<SubcategoriaBusqueda>();
+        }
+        
+        SubcategoriaBusqueda dato=new SubcategoriaBusqueda();
+        dato.setEstado(GeneralEnumEstado.ACTIVO.getEstado());
+        dato.setFechaCreacionRegistro(UtilidadesFechas.getFechaHoyUtil());
+        dato.setSolicitudBusqueda(this);
+        dato.setSubcategoria(subCategoria);
+        subcategoriaBusquedas.add(dato);
+    }
     
+    public void addAllCategoria(List<Subcategoria> subcategorias)
+    {
+        for (Subcategoria subcategoria : subcategorias) {
+            addSubCategoria(subcategoria);
+        }
+    }
+    
+    public void addAllCategoria(Subcategoria[] subcategorias)
+    {
+        for (Subcategoria subcategoria : subcategorias) {
+            addSubCategoria(subcategoria);
+        }
+    }
+    
+    
+    public List<SubcategoriaBusqueda> obtenerSubCategoriaActivos() {
+        List<SubcategoriaBusqueda> resultado = new ArrayList<SubcategoriaBusqueda>();
+        if (subcategoriaBusquedas != null) {
+            for (SubcategoriaBusqueda subcategoria : subcategoriaBusquedas) {
+                if (subcategoria.getEstadoEnum().equals(GeneralEnumEstado.ACTIVO)) 
+                {
+                    resultado.add(subcategoria);
+                }
+            }
+        }
+        return resultado;
+    }
+
     public EstadoEnum getEstadoEnum() {
         return EstadoEnum.getByLetra(estado);
     }
@@ -203,36 +249,38 @@ public class SolicitudBusqueda implements Serializable {
     public void setEstadoEnum(EstadoEnum estadoEnum) {
         this.estado = estadoEnum.letra;
     }
-    
-    public enum EstadoEnum
-    {
+
+    public enum EstadoEnum {
         /**
-         * 1.- Generada:
-         * Estado inicial que pasa toda busqueda al momento de generar por el cliente
+         * 1.- Generada: Estado inicial que pasa toda busqueda al momento de
+         * generar por el cliente
          */
-        GENERADA("g","Generada"),
+        GENERADA("g", "Generada"),
         /**
-         * 2.- Verificada:
-         * Segundo estado que se ingresa despues que el verificador aprueba y categoriza la busqueda
+         * 2.- Verificada: Segundo estado que se ingresa despues que el
+         * verificador aprueba y categoriza la busqueda
          */
-        VERIFICADA("v","Verificada"),
+        VERIFICADA("v", "Verificada"),
         /**
-         * 3.- Estado cuando ya se mando los presupuestos al cliente para que pueda revisar
+         * 3.- Estado cuando ya se mando los presupuestos al cliente para que
+         * pueda revisar
          */
-        RESPONDIDA("r","Respondidad"),
+        RESPONDIDA("r", "Respondidad"),
         /**
-         * 4.- Estado que se ingresa cuando el cliente por fin selecciona un presupuesto
+         * 4.- Estado que se ingresa cuando el cliente por fin selecciona un
+         * presupuesto
          */
-        FINALIZADA("f","Finalizada"),
+        FINALIZADA("f", "Finalizada"),
         /**
-         * 
+         *
          */
-        ELIMINADA("e","Eliminado"),
-        /**"
+        ELIMINADA("e", "Eliminado"),
+        /**
+         * "
          * Estado cuando una busqueda incumple alguna norma de la pagina web
          */
-        SANCIONADA("s","Sancionado");
-        
+        SANCIONADA("s", "Sancionado");
+
         private String letra;
         private String nombre;
 
@@ -241,7 +289,6 @@ public class SolicitudBusqueda implements Serializable {
             this.nombre = nombre;
         }
 
-        
         public String getLetra() {
             return letra;
         }
@@ -249,19 +296,16 @@ public class SolicitudBusqueda implements Serializable {
         public String getNombre() {
             return nombre;
         }
-        
-        public static EstadoEnum getByLetra(String letra)
-        {
-            for (EstadoEnum object : EstadoEnum.values()) 
-            {
-                if(object.getLetra().equals(letra))
-                {
+
+        public static EstadoEnum getByLetra(String letra) {
+            for (EstadoEnum object : EstadoEnum.values()) {
+                if (object.getLetra().equals(letra)) {
                     return object;
                 }
             }
             return null;
         }
-        
+
     }
-    
+
 }

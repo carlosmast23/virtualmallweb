@@ -5,7 +5,9 @@
  */
 package ec.com.codesoft.virtualmall.mb;
 
+import com.sun.faces.context.flash.ELFlash;
 import ec.com.codesoft.virtualmall.core.ConstantesMb;
+import ec.com.codesoft.virtualmall.core.NavigationMb;
 import ec.com.codesoft.virtualmall.entity.SolicitudBusqueda;
 import ec.com.codesoft.virtualmall.exception.ServicioCodefacException;
 import ec.com.codesoft.virtualmall.service.SolicitudBusquedaService;
@@ -60,14 +62,16 @@ public class BusquedaMb extends AbstractMb implements Serializable{
         try {
             servicio.grabar(busqueda);
             UtilidadesMensajes.mensaje("Mensaje generado correctamente",FacesMessage.SEVERITY_INFO);
-            /**
-             * Generar el link para redirecionar a otra pantalla que muestra el resultado
-             */
-            Map<String,String> mapParametro=new HashMap<String,String>();
-            mapParametro.put(RespuestaMb.PARAMETRO_TITULO,"Busqueda Generada Corretamente");
-            mapParametro.put(RespuestaMb.PARAMETRO_LINK,ConstantesMb.INDEX_RUTA);
-            mapParametro.put(RespuestaMb.PARAMETRO_CONTENIDO,"Su búsqueda se genero correctamente, vamos a buscar el producto o servicio solicitado en nuestra red de proveedores y nos comunicaremos por el numero de contacto proporcionado para mostrar las diferentes opciones, y finalmente que se pongan en contacto con el proveedor que le interesa su oferta.");            
-            return UtilidadesWeb.agregarParametroGet(ConstantesMb.RESPUESTA_RUTA, mapParametro,true);
+
+            
+            //Crear mennsaje para mostrar al cliente
+            RespuestaMb.Mensaje mensaje=new RespuestaMb.Mensaje();
+            mensaje.titulo="Busqueda Generada Corretamente";
+            mensaje.mensaje="Su búsqueda se genero correctamente, vamos a buscar el producto o servicio solicitado en nuestra red de proveedores y nos comunicaremos por el numero de contacto proporcionado para mostrar las diferentes opciones, y finalmente que se pongan en contacto con el proveedor que le interesa su oferta.";
+            mensaje.linkRedirigir=NavigationMb.INDEX.getRutaJsf();
+            ELFlash.getFlash().put(RespuestaMb.PARAMETRO_MENSAJE,mensaje);
+            
+            return NavigationMb.INDEX.getRutaJsf();
         } catch (ServicioCodefacException ex) {
             Logger.getLogger(BusquedaMb.class.getName()).log(Level.SEVERE, null, ex);
             UtilidadesMensajes.mensaje(ex.getMessage(),FacesMessage.SEVERITY_ERROR);

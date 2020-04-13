@@ -6,6 +6,8 @@
 package ec.com.codesoft.virtualmall.mb;
 
 import com.sun.faces.context.flash.ELFlash;
+import ec.com.codesoft.virtualmall.commons.SubcategoriasCommons;
+import ec.com.codesoft.virtualmall.core.NavigationMb;
 import ec.com.codesoft.virtualmall.core.ServiceFactory;
 import ec.com.codesoft.virtualmall.entity.Categoria;
 import ec.com.codesoft.virtualmall.entity.Proveedor;
@@ -18,6 +20,7 @@ import ec.com.codesoft.virtualmall.util.UtilidadesMensajes;
 import ec.com.codesoft.virtualmall.util.UtilidadesWeb;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -70,35 +73,19 @@ public class RegistroProveedorMb implements Serializable {
     }
 
     public void crearListaCategorias() {
-
-        subcategorias=new ArrayList<SelectItem>();
         
-        List<Categoria> categorias = ServiceFactory.getCategoriaService().obtenerTodos(); //Cambiar luego a obtener activos        
-        for (Categoria categoria : categorias) {
-            SelectItemGroup categoriaGroup = new SelectItemGroup(categoria.getNombre());
-            
-            List<Subcategoria> subcategorias=ServiceFactory.getSubCategoriaService().obtenerSubcategoriasActivasPorCategoria(categoria);
-            
-            List<SelectItem> items=new ArrayList<SelectItem>();
-            for (Subcategoria subcategoria : subcategorias) 
-            {
-                items.add(new SelectItem(subcategoria,subcategoria.getNombre()));
-            }
-            
-            SelectItem[] arrayItems=new SelectItem[items.size()];
-            categoriaGroup.setSelectItems(items.toArray(arrayItems)); 
-            this.subcategorias.add(categoriaGroup);
-        }
-       
-
+        subcategorias=SubcategoriasCommons.crearListaCategorias();
     }
 
     private void obtenerParametrosFlash() {
-        proveedor.setNombres(ELFlash.getFlash().get(PARAMETRO_NOMBRES).toString());
-        proveedor.setApellidos(ELFlash.getFlash().get(PARAMETRO_APELLIDOS).toString());
-        proveedor.setNombreNegocio(ELFlash.getFlash().get(PARAMETRO_NOMBRE_EMPRESA).toString());
-        proveedor.setWhatsapp(ELFlash.getFlash().get(PARAMETRO_CELULAR).toString());
-        proveedor.setCorreo(ELFlash.getFlash().get(PARAMETRO_CORREO).toString());
+        if(!ELFlash.getFlash().isEmpty())
+        {
+            proveedor.setNombres(ELFlash.getFlash().get(PARAMETRO_NOMBRES).toString());
+            proveedor.setApellidos(ELFlash.getFlash().get(PARAMETRO_APELLIDOS).toString());
+            proveedor.setNombreNegocio(ELFlash.getFlash().get(PARAMETRO_NOMBRE_EMPRESA).toString());
+            proveedor.setWhatsapp(ELFlash.getFlash().get(PARAMETRO_CELULAR).toString());
+            proveedor.setCorreo(ELFlash.getFlash().get(PARAMETRO_CORREO).toString()); 
+        }
     }
 
     private void obtenerParametrosGet() {
@@ -112,10 +99,20 @@ public class RegistroProveedorMb implements Serializable {
 
     public String grabar() {
         try {
+            System.out.println("grabando lo datos");
+            setearValores(); 
             validar();
             ServiceFactory.getProveedorService().grabar(proveedor);
             UtilidadesMensajes.mensaje("Proveedor grabado correctamente", FacesMessage.SEVERITY_INFO);
-            return "index.xhtml?faces-redirect=true";
+            
+            //Crear mennsaje para mostrar al cliente
+            RespuestaMb.Mensaje mensaje=new RespuestaMb.Mensaje();
+            mensaje.titulo="Registro Proveedor Correto";
+            mensaje.mensaje="El registro fue realizado correctamente , si algún cliente necesita algún producto por su sector Virtual Mall se pondrá en contacto atreves del numero proporcionado para que pueda generar propuestas ";
+            mensaje.linkRedirigir=NavigationMb.INDEX.getRutaJsf();
+            ELFlash.getFlash().put(RespuestaMb.PARAMETRO_MENSAJE,mensaje);
+            
+            return NavigationMb.RESPUESTA.getRutaJsf();
         } catch (ServicioCodefacException ex) {
             UtilidadesMensajes.mensaje(ex.getMessage(), FacesMessage.SEVERITY_ERROR);
             Logger.getLogger(RegistroProveedorMb.class.getName()).log(Level.SEVERE, null, ex);
@@ -125,9 +122,20 @@ public class RegistroProveedorMb implements Serializable {
     }
 
     public void validar() throws ServicioCodefacException {
+        
+        
         if (!proveedor.getUsuario().getClave().equals(claveDuplicada)) {
             throw new ServicioCodefacException("Las claves ingresadas son distintas");
         }
+    }
+    
+    private void setearValores() {        
+        System.out.println("Datos de las subcategorias seleccionadas -> ");
+        for (Subcategoria subCategoriaSeleccionada : subCategoriaSeleccionadas) {
+            System.out.println(">"+subCategoriaSeleccionada.getNombre());
+        }
+        
+        proveedor.addAllCategoria(subCategoriaSeleccionadas);
     }
 
     public Proveedor getProveedor() {
@@ -147,24 +155,20 @@ public class RegistroProveedorMb implements Serializable {
     }
 
     public List<SelectItem> getSubcategorias() {
-        return subcategorias;
+        return subcategorias;  
     }
 
     public void setSubcategorias(List<SelectItem> subcategorias) {
         this.subcategorias = subcategorias;
     }
 
-
-    
-
-    
-
     public Subcategoria[] getSubCategoriaSeleccionadas() {
-        return subCategoriaSeleccionadas;
+        return subCategoriaSeleccionadas; 
     }
 
     public void setSubCategoriaSeleccionadas(Subcategoria[] subCategoriaSeleccionadas) {
-        this.subCategoriaSeleccionadas = subCategoriaSeleccionadas;
+        this.subCategoriaSeleccionadas = subCategoriaSeleccionadas;  
     }
 
+  
 }

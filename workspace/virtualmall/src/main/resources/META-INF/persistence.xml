@@ -13,6 +13,9 @@
     <class>ec.com.codesoft.virtualmall.entity.Parametros</class>
     <class>ec.com.codesoft.virtualmall.facade.SubCategoriaFacade</class>
     <class>ec.com.codesoft.virtualmall.service.CategoriaService</class>
+    <class>ec.com.codesoft.virtualmall.converter.SubCategoriaConverter</class>
+    <class>ec.com.codesoft.virtualmall.converter.selectItems.SubCategoriaSelectItems</class>
+    <class>test.HelloJob</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/virtual_mall?zeroDateTimeBehavior=convertToNull"/>

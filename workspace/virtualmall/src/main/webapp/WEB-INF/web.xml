@@ -28,6 +28,12 @@
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>busqueda.xhtml</welcome-file>
+        <welcome-file>moderador/clasificar_busqueda.xhtml</welcome-file>
     </welcome-file-list>
+    
+    <listener>
+        <listener-class>
+            org.quartz.ee.servlet.QuartzInitializerListener
+        </listener-class>
+    </listener>
 </web-app>

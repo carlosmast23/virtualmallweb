@@ -5,6 +5,7 @@
  */
 package ec.com.codesoft.virtualmall.mb;
 
+import com.sun.faces.context.flash.ELFlash;
 import ec.com.codesoft.virtualmall.util.UtilidadesWeb;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
@@ -19,48 +20,67 @@ import javax.faces.bean.ViewScoped;
 @ViewScoped 
 public class RespuestaMb extends AbstractMb implements Serializable{
     
-    public static final String PARAMETRO_TITULO="titulo";
-    public static final String PARAMETRO_CONTENIDO="contenido";
-    public static final String PARAMETRO_LINK="link";
+    public static final String PARAMETRO_MENSAJE="MENSAJE";
     
-    private String titulo;
-    private String mensaje;
-    private String linkRedirigir;
+    private Mensaje mensaje;
+    
     
     @PostConstruct
     public void init()
     {
-        linkRedirigir="index"; 
-        linkRedirigir=UtilidadesWeb.buscarParametroPeticion(PARAMETRO_LINK);
-        titulo=UtilidadesWeb.buscarParametroPeticion(PARAMETRO_TITULO);
-        mensaje=UtilidadesWeb.buscarParametroPeticion(PARAMETRO_CONTENIDO);
+        mensaje=(Mensaje) ELFlash.getFlash().get(PARAMETRO_MENSAJE);
+        if(mensaje.titulo==null)
+        {
+            mensaje.titulo="index";
+        }
+        //linkRedirigir="index"; 
+        //linkRedirigir=UtilidadesWeb.buscarParametroPeticion(PARAMETRO_LINK);
+        //titulo=UtilidadesWeb.buscarParametroPeticion(PARAMETRO_TITULO);
+        //mensaje=UtilidadesWeb.buscarParametroPeticion(PARAMETRO_CONTENIDO);
     }
 
-    public String getTitulo() {
-        return titulo;
+    public Mensaje getMensaje() {
+        return mensaje;
     }
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
-    public String getMensaje() {
-        return mensaje; 
-    }
-
-    public void setMensaje(String mensaje) {
+    public void setMensaje(Mensaje mensaje) {
         this.mensaje = mensaje;
     }
 
-    public String getLinkRedirigir() {
-        return linkRedirigir;
-    }
+    
+    
+    public static class Mensaje
+    {
+        public String titulo;
+        public String mensaje;
+        public String linkRedirigir;    
 
-    public void setLinkRedirigir(String linkRedirigir) {
-        this.linkRedirigir = linkRedirigir;
+        public String getTitulo() {
+            return titulo;
+        }
+
+        public void setTitulo(String titulo) {
+            this.titulo = titulo;
+        }
+
+        public String getMensaje() {
+            return mensaje;
+        }
+
+        public void setMensaje(String mensaje) {
+            this.mensaje = mensaje;
+        }
+
+        public String getLinkRedirigir() {
+            return linkRedirigir;
+        }
+
+        public void setLinkRedirigir(String linkRedirigir) {
+            this.linkRedirigir = linkRedirigir;
+        }
+        
+        
     }
-    
-    
     
     
 }

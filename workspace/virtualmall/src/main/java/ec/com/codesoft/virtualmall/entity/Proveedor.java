@@ -5,8 +5,11 @@
  */
 package ec.com.codesoft.virtualmall.entity;
 
+import ec.com.codesoft.virtualmall.enumerador.GeneralEnumEstado;
+import ec.com.codesoft.virtualmall.util.UtilidadesFechas;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -102,11 +105,11 @@ public class Proveedor implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date fechaCreacionRegistro;
     
-    @OneToMany(mappedBy = "proveedorId")
-    private List<Presupuesto> presupuestoList;
-    @OneToMany(mappedBy = "proveedorId")
-    private List<SubcategoriaBusqueda> subcategoriaBusquedaList;
-    @OneToMany(mappedBy = "proveedorId")
+    //@OneToMany(mappedBy = "proveedor")
+    //private List<Presupuesto> presupuestoList;
+    //@OneToMany(mappedBy = "proveedorId")
+    //private List<SubcategoriaBusqueda> subcategoriaBusquedaList;
+    @OneToMany(mappedBy = "proveedor")
     private List<SubcategoriaProveedor> subcategoriaProveedorList;
     
     @JoinColumn(name = "USUARIO_ID", referencedColumnName = "ID")
@@ -240,23 +243,23 @@ public class Proveedor implements Serializable {
         this.fechaCreacionRegistro = fechaCreacionRegistro;
     }
 
-    @XmlTransient
+    /*@XmlTransient
     public List<Presupuesto> getPresupuestoList() {
         return presupuestoList;
     }
 
     public void setPresupuestoList(List<Presupuesto> presupuestoList) {
         this.presupuestoList = presupuestoList;
-    }
+    }*/
 
-    @XmlTransient
+    /*@XmlTransient
     public List<SubcategoriaBusqueda> getSubcategoriaBusquedaList() {
         return subcategoriaBusquedaList;
     }
 
     public void setSubcategoriaBusquedaList(List<SubcategoriaBusqueda> subcategoriaBusquedaList) {
         this.subcategoriaBusquedaList = subcategoriaBusquedaList;
-    }
+    }*/
 
     @XmlTransient
     public List<SubcategoriaProveedor> getSubcategoriaProveedorList() {
@@ -300,4 +303,38 @@ public class Proveedor implements Serializable {
         return "ec.com.codesoft.virtualmall.entity.Proveedor[ id=" + id + " ]";
     }
     
+    /**
+     * =========================================================================
+     *                      METODOS PERSNOALIZADOS
+     * =========================================================================
+     */
+    
+    public void addSubCategoria(Subcategoria subCategoria)
+    {
+        if(subcategoriaProveedorList==null)
+        {
+            subcategoriaProveedorList=new ArrayList<SubcategoriaProveedor>();
+        }
+        
+        SubcategoriaProveedor dato=new SubcategoriaProveedor();
+        dato.setEstado(GeneralEnumEstado.ACTIVO.getEstado());
+        dato.setFechaCreacionRegistro(UtilidadesFechas.getFechaHoyUtil());
+        dato.setProveedor(this);
+        dato.setSubcategoria(subCategoria);
+        subcategoriaProveedorList.add(dato);
+    }
+    
+    public void addAllCategoria(List<Subcategoria> subcategorias)
+    {
+        for (Subcategoria subcategoria : subcategorias) {
+            addSubCategoria(subcategoria);
+        }
+    }
+    
+    public void addAllCategoria(Subcategoria[] subcategorias)
+    {
+        for (Subcategoria subcategoria : subcategorias) {
+            addSubCategoria(subcategoria);
+        }
+    }
 }

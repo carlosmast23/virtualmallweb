@@ -31,17 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "presupuesto")
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Presupuesto.findAll", query = "SELECT p FROM Presupuesto p"),
-    @NamedQuery(name = "Presupuesto.findById", query = "SELECT p FROM Presupuesto p WHERE p.id = :id"),
-    @NamedQuery(name = "Presupuesto.findByDescripcion", query = "SELECT p FROM Presupuesto p WHERE p.descripcion = :descripcion"),
-    @NamedQuery(name = "Presupuesto.findByFoto1", query = "SELECT p FROM Presupuesto p WHERE p.foto1 = :foto1"),
-    @NamedQuery(name = "Presupuesto.findByFoto2", query = "SELECT p FROM Presupuesto p WHERE p.foto2 = :foto2"),
-    @NamedQuery(name = "Presupuesto.findByFoto3", query = "SELECT p FROM Presupuesto p WHERE p.foto3 = :foto3"),
-    @NamedQuery(name = "Presupuesto.findByValor", query = "SELECT p FROM Presupuesto p WHERE p.valor = :valor"),
-    @NamedQuery(name = "Presupuesto.findByNuevoOUsado", query = "SELECT p FROM Presupuesto p WHERE p.nuevoOUsado = :nuevoOUsado"),
-    @NamedQuery(name = "Presupuesto.findByEstado", query = "SELECT p FROM Presupuesto p WHERE p.estado = :estado"),
-    @NamedQuery(name = "Presupuesto.findByFechaCreacionRegistro", query = "SELECT p FROM Presupuesto p WHERE p.fechaCreacionRegistro = :fechaCreacionRegistro")})
+@NamedQueries({})
 public class Presupuesto implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -76,7 +66,7 @@ public class Presupuesto implements Serializable {
     private Date fechaCreacionRegistro;
     @JoinColumn(name = "PROVEEDOR_ID", referencedColumnName = "ID")
     @ManyToOne
-    private Proveedor proveedorId;
+    private Proveedor proveedor;
     @JoinColumn(name = "SOLICITUD_BUSQUEDA_ID", referencedColumnName = "ID")
     @ManyToOne
     private SolicitudBusqueda solicitudBusquedaId;
@@ -160,12 +150,12 @@ public class Presupuesto implements Serializable {
         this.fechaCreacionRegistro = fechaCreacionRegistro;
     }
 
-    public Proveedor getProveedorId() {
-        return proveedorId;
+    public Proveedor getProveedor() {
+        return proveedor;
     }
 
-    public void setProveedorId(Proveedor proveedorId) {
-        this.proveedorId = proveedorId;
+    public void setProveedor(Proveedor proveedor) {
+        this.proveedor = proveedor;
     }
 
     public SolicitudBusqueda getSolicitudBusquedaId() {

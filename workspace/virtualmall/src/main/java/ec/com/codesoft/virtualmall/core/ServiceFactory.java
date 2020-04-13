@@ -7,6 +7,7 @@ package ec.com.codesoft.virtualmall.core;
 
 import ec.com.codesoft.virtualmall.service.CategoriaService;
 import ec.com.codesoft.virtualmall.service.ProveedorService;
+import ec.com.codesoft.virtualmall.service.SolicitudBusquedaService;
 import ec.com.codesoft.virtualmall.service.SubCategoriaService;
 import ec.com.codesoft.virtualmall.service.UsuarioService;
 
@@ -20,6 +21,7 @@ public abstract class ServiceFactory {
     public static ProveedorService getProveedorService() {return new ProveedorService();}
     public static SubCategoriaService getSubCategoriaService() {return new SubCategoriaService();}
     public static CategoriaService getCategoriaService() {return new CategoriaService();}
+    public static SolicitudBusquedaService getSolicitudBusquedaService() {return new SolicitudBusquedaService();}
     
         /**
      * Ip del servidor del cual se va a consumir los servicios
@@ -51,3 +53,4 @@ public abstract class ServiceFactory {
 
     
 }
+

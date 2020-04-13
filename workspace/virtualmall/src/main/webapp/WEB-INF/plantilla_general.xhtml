@@ -41,11 +41,11 @@
                             
                             <p:tieredMenu  overlay="true" trigger="dynaButton" my="left top" at="left bottom" style="width:200px">
 
-                                <p:menuitem value="VirtualMall" process="@this" url="#{constantesMb.indexRuta}"  update="messages"  />
-                                <p:menuitem value="Sobre Nosotros" process="@this" url="#{constantesMb.redirigir(constantesMb.indexNosotrosRuta)}" update="messages"  />
-                                <p:menuitem value="Registrarse" process="@this" action="#{constantesMb.redirigir(constantesMb.registroProveedorRuta)}" update="messages"  />
-                                <p:menuitem value="Contactanos" url="#{constantesMb.redirigir(constantesMb.indexContactanosRuta)}" update="messages"  />
-                                <p:menuitem value="Ingresar" process="@this" action="login" update="messages"  />
+                                <p:menuitem value="VirtualMall" process="@this" url="#{navigationMb.index.rutaUrl}"  update="messages"  />
+                                <p:menuitem value="Sobre Nosotros" process="@this" url="#{navigationMb.indexNosotros.obtenerRutaUrl()}" update="messages"  />
+                                <p:menuitem value="Registrarse" process="@this" action="#{navigationMb.registroProveedor.obtenerRutaJsf()}" update="messages"  />
+                                <p:menuitem value="Contactanos" url="#{navigationMb.indexContactanos.obtenerRutaUrl()}" update="messages"  />
+                                <p:menuitem value="Ingresar" process="@this" action="#{navigationMb.login.obtenerRutaJsf()}" update="messages"  />
                                 <p:menuitem value="Ayuda" actionListener="#{menuView.save}" update="messages"  />
 
                             </p:tieredMenu>

@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition  template="/WEB-INF/plantilla_formularios.xhtml">
+
+        <ui:define name="titulo_plantilla">
+            Clasificar Busqueda
+        </ui:define>
+        
+        
+        <ui:define name="contenido2">
+            <p:remoteCommand name="actualizarTablaRC" update=":formulario_principal:tblDatos"  />
+            <p:commandButton process="@this" action="#{clasificarBusquedaMb.ejemplo()}" value="otro ejhemplo" icon="fa fa-fw fa-check" title="Autorizar busqueda" update=":formulario_principal:tblDatos" />
+
+            <p:dataTable 
+                id="tblDatos" 
+                var="busqueda" 
+                value="#{clasificarBusquedaMb.busquedasModel}"
+
+                >
+
+                <f:facet name="header">
+                    Busquedas Pendientes clasificar
+                </f:facet>
+                <p:column headerText="Busqueda" >
+                    <h:outputText value="#{busqueda.solicitudBusqueda.busqueda}" />
+                </p:column>
+
+                <p:column headerText="Nombres">
+                    <h:outputText value="#{busqueda.solicitudBusqueda.nombresCliente}" />
+                </p:column>
+
+                <p:column headerText="Whatsapp" style="width: 130px">
+                    <h:outputText value="#{busqueda.solicitudBusqueda.whatsappCliente}" />
+                </p:column>
+
+                <p:column headerText="Tiempo" style="width: 50px">
+                    <h:outputText value="#{busqueda.solicitudBusqueda.tiempoRespuestaMin}" />
+                </p:column>
+
+                <p:column headerText="Hora Solicitud (Min)">
+                    <h:outputText value="#{busqueda.solicitudBusqueda.fechaHoraSolicitud}" />
+                </p:column>
+
+                <p:column headerText="Categorias">
+                    <p:selectCheckboxMenu 
+                        id="grouped" 
+                        value="#{busqueda.subCategoriaSeleccionadas}"
+                        label="Categorias" 
+                        multiple="true"                        
+                        converter="subCategoriaConverter"
+                        filter="true" 
+                        filterMatchMode="startsWith" >
+
+                        <f:selectItems   value="#{clasificarBusquedaMb.subcategorias}"  />
+                    </p:selectCheckboxMenu>
+                </p:column>
+
+                <p:column style="width:32px;text-align: center">
+                    <p:commandButton actionListener="#{clasificarBusquedaMb.autorizarBusqueda(busqueda)}" icon="fa fa-fw fa-check" title="Autorizar busqueda" update=":formulario_principal:tblDatos ,:messages"  >
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
+
+        </ui:define>
+    </ui:composition>
+
+</html>
+

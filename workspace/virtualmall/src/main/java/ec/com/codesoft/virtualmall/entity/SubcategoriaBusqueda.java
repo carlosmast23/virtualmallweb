@@ -5,6 +5,7 @@
  */
 package ec.com.codesoft.virtualmall.entity;
 
+import ec.com.codesoft.virtualmall.enumerador.GeneralEnumEstado;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -49,12 +50,12 @@ public class SubcategoriaBusqueda implements Serializable {
     @Column(name = "FECHA_CREACION_REGISTRO")
     @Temporal(TemporalType.DATE)
     private Date fechaCreacionRegistro;
-    @JoinColumn(name = "PROVEEDOR_ID", referencedColumnName = "ID")
+    @JoinColumn(name = "SOLICITUD_BUSQUEDA_ID", referencedColumnName = "ID")
     @ManyToOne
-    private Proveedor proveedorId;
+    private SolicitudBusqueda solicitudBusqueda;
     @JoinColumn(name = "SUBCATEGORIA_ID", referencedColumnName = "ID")
     @ManyToOne
-    private Subcategoria subcategoriaId;
+    private Subcategoria subcategoria;
 
     public SubcategoriaBusqueda() {
     }
@@ -87,20 +88,28 @@ public class SubcategoriaBusqueda implements Serializable {
         this.fechaCreacionRegistro = fechaCreacionRegistro;
     }
 
-    public Proveedor getProveedorId() {
-        return proveedorId;
+    public SolicitudBusqueda getSolicitudBusqueda() {
+        return solicitudBusqueda;
     }
 
-    public void setProveedorId(Proveedor proveedorId) {
-        this.proveedorId = proveedorId;
+    public void setSolicitudBusqueda(SolicitudBusqueda solicitudBusqueda) {
+        this.solicitudBusqueda = solicitudBusqueda;
     }
 
-    public Subcategoria getSubcategoriaId() {
-        return subcategoriaId;
+    public GeneralEnumEstado getEstadoEnum() {
+        return GeneralEnumEstado.getEnum(estado);
     }
 
-    public void setSubcategoriaId(Subcategoria subcategoriaId) {
-        this.subcategoriaId = subcategoriaId;
+    public void setEstadoEnum(GeneralEnumEstado estadoEnum) {
+        this.estado = estadoEnum.getEstado();
+    }
+
+    public Subcategoria getSubcategoria() {
+        return subcategoria;
+    }
+
+    public void setSubcategoria(Subcategoria subcategoria) {
+        this.subcategoria = subcategoria;
     }
 
     @Override
@@ -127,5 +136,5 @@ public class SubcategoriaBusqueda implements Serializable {
     public String toString() {
         return "ec.com.codesoft.virtualmall.entity.SubcategoriaBusqueda[ id=" + id + " ]";
     }
-    
+
 }
